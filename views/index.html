@@ -21,7 +21,11 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
                 var pseudo = prompt('Quel est votre pseudo ?');
+                socket.emit('nouveau_client', pseudo);
 
+                socket.on('nouveau_client', function(message) {
+                    $('#messages').append($('<li>').text(message));
+                })
                 $(function () {
                         var socket = io();
                         $('form').submit(function(e){
@@ -31,7 +35,7 @@
                                 return false;
                         });
                         socket.on('chat message', function(msg){
-                                $('#messages').append($('<li>').text(msg));
+                            $('#messages').append($('<li>').text(msg));
                         });
                 });
         </script>
