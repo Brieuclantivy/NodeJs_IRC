@@ -4,6 +4,7 @@
         "description": "IRC chat for Epitech",
         "dependencies": {
                 "express": "^4.16.4",
+                "mongodb": "^3.1.13",
                 "socket.io": "^2.2.0"
         }
 }

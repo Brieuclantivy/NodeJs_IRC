@@ -3,6 +3,7 @@ var express = require("express");
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var MongoClient = require('mongodb');
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/views/index.html');
@@ -12,6 +13,60 @@ app.use(express.static('public'));
 
 var rooms = ['room1','room2','room3'];
 var usernames = {};
+/*var db = "irc";
+
+var url = "mongodb://localhost:27017/irc";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("irc");
+	var myquery = { msg: /^b/ };
+  dbo.collection("msg").deleteMany(myquery, function(err, obj) {
+    if (err) throw err;
+    console.log(obj.result.n + " document(s) deleted");
+    db.close();
+  });
+});*/
+
+/* DELETE
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("irc");
+	var myquery = { msg: /^b/ };
+  dbo.collection("msg").deleteMany(myquery, function(err, obj) {
+    if (err) throw err;
+    console.log(obj.result.n + " document(s) deleted");
+    db.close();
+  });
+});
+*/
+
+/* INSERT
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("irc");
+  var myobj = { pseudo: "brieuc", msg: "bonjour, c'est un test", room: "room1" };
+  dbo.collection("msg").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+	});
+});
+
+*/
+
+
+/** FIND
+ MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("irc");
+  dbo.collection("msg").findOne({}, function(err, result) {
+    if (err) throw err;
+    console.log(result.msg);
+    db.close();
+  });});
+ */
+
 
 io.sockets.on('connection', function (socket) {
 	
@@ -28,7 +83,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('sendchat', function (data) {
     if (data.includes('/all ')) {
       rooms.forEach(function(room){
-        io.sockets.in(room).emit('msgToChat', socket.username, data);
+        io.sockets.in(room).emit('msgToChat', socket.username, data.substr(5));
       });
     }
     else
@@ -66,10 +121,6 @@ io.sockets.on('connection', function (socket) {
 
 /**
 
-// then simply use to or in (they are the same) when broadcasting or emitting (server-side)
-io.to('some room').emit('some event'):
-
-
 https://socket.io/docs/emit-cheatsheet/
 
 /color
@@ -78,6 +129,9 @@ https://socket.io/docs/emit-cheatsheet/
 /gras
 /italique
 time out si spam
+l'heure 
+/clear pour clear le chat visuel
+/clearall pour delete la bdd
  */
 
 http.listen(3000, function(){
