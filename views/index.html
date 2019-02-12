@@ -14,56 +14,65 @@
     </style>
   </head>
   <script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script>
-        var socket = io();
+	var socket = io.connect('http://localhost:3000');
+
+	socket.on('connect', function(){
+		socket.emit('newUser', prompt("What's your name?"));
+	});
+	socket.on('msgToChat', function (username, data) {
+		$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+	});
+	socket.on('updaterooms', function(rooms, current_room) {
+		$('#rooms').empty();
+		$.each(rooms, function(key, value) {
+			if(value == current_room){
+				$('#rooms').append('<div>' + value + '</div>');
+			}
+			else {
+				$('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
+			}
+		});
+	});
+
+	function switchRoom(room){
+		socket.emit('switchRoom', room);
+		socket.emit('addRoom', "toto");
+	}
+	
+	$(function(){
+		$('form').submit(function(e){
+			e.preventDefault(); // prevents page reloading
+			$('#data').val('');
+			return false;
+		});
+
+		$('#datasend').click( function() {
+			var message = $('#data').val();
+			$('#data').val('');
+			socket.emit('sendchat', message);
+		});
+
+		$('#data').keypress(function(e) {
+			if(e.which == 13) {
+				$(this).blur();
+				$('#datasend').focus().click();
+			}
+		});
+	});
+
 </script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-	<script>
-		var pseudo = prompt('Quel est votre pseudo ?');//NE MARCHE PAS SUR MOBILE
-		socket.emit('nouveau_client', pseudo);
-
-		socket.on('nouveau_client', function(message) {
-			$('#messages').append($('<li>').text(message));
-		})
-		$(function () {
-			var socket = io();
-			$('form').submit(function(e){
-				e.preventDefault(); // prevents page reloading
-				socket.emit('chat message', pseudo, $('#m').val());
-				$('#m').val('');
-				return false;
-			});
-			socket.on('chat message', function(msg){
-				console.log("JE SUIS LA")
-				$('#messages').append($('<li>').text(msg));
-			});
-		});
 
 
-		socket.on('updaterooms', function(rooms, current_room) {
-			$('#rooms').empty();
-			$.each(rooms, function(key, value) {
-				if(value == current_room){
-					$('#rooms').append('<div>' + value + '</div>');
-				}
-				else {
-					$('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
-				}
-			});
-		});
-		function switchRoom(room){
-			socket.emit('switchRoom', room);
-		}
-	</script>
-	<body>
-		<div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
-			<b>ROOMS</b>
-			<div id="rooms"></div>
-		</div>
-		<ul id="messages"></ul>
-		<form action="">
-			<input id="m" autocomplete="off" /><button>Send</button>
-		</form>
-	</body>
+<body>
+	<div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
+		<b>ROOMS</b>
+		<div id="rooms"></div>
+	</div>
+	<div id="conversation"></div>
+	<form action="">
+		<input  id="data" autocomplete="off" /><button type="button" id="datasend" value="send">Send</button>
+	</form>
+</body>
 </html>
