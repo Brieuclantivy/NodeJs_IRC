@@ -1,0 +1,5 @@
+  <mat-list class="chat-list scrollable">
+      <div *ngFor="let message of messages">
+          <app-message [chatMessage] = message class="msglist"></app-message>
+      </div>
+  </mat-list>

@@ -1,0 +1,28 @@
+.messageContainer{
+  display: flex;
+  height: auto;
+  width: 70%;
+  min-width: 600px;
+  border-radius: 5px;
+  align-items:stretch;
+  background-color: #01579B;;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.26), 0 3px 6px rgba(0,0,0,0.23);
+  overflow: auto;
+  word-wrap: break-word;
+}
+
+.messageUser{
+  flex: 1;
+  padding: 10px;
+  font-size: 0.7em;
+}
+
+.messageContent{
+  height: auto;
+  flex: 9;
+  background-color: #E3F2FD;
+  color: #01579B;
+  padding: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

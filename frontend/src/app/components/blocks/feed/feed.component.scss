@@ -1,0 +1,18 @@
+.user {
+  font-size: 20;
+  background-color: blue;
+}
+
+.msgContainer {
+  background-color: red;
+}
+
+.msglist {
+  padding:5px;
+}
+
+.scrollable {
+  overflow:hidden;
+  overflow-y:scroll;
+  height:60vh;
+}

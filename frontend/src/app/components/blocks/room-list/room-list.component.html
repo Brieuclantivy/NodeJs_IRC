@@ -1,0 +1,19 @@
+  <div class="d-flex" id="wrapper">
+    <div class="bg-light border-right pull-right" id="sidebar-wrapper">
+      <button type="button" class="btn btn-outline-primary center-align center" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+      Room list
+    </button>
+      <div class="list-group list-group-flush">
+        <div id="collapseExample" [ngbCollapse]="isCollapsed">
+          <div class="card">
+            <div>
+                <div class="list-group" *ngFor="let room of roomList">
+                    <button value= "room1" class="btn btn-primary space" (click)= changeRoom(room)> {{room}} </button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  

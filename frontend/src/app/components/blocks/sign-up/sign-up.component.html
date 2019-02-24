@@ -1,0 +1,23 @@
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Register</h5>
+            <div class="input-group">
+              <input type="text" placeholder ="User name" 
+              class="form-control" (keydown)="handleSubmit($event)" [(ngModel)]="username">
+              <input type="password" placeholder ="Password" 
+              class="form-control" (keydown)="handleSubmit($event)" [(ngModel)]="password">
+              <div *ngIf="showbutton" class="input-group-append">
+                <button type="button" class="btn btn-outline-secondary" (click)=register() routerLink="/">Create account</button>
+              </div>
+            </div>
+            <p class="advice">Alpha-numeric between 4 and 12 characters</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

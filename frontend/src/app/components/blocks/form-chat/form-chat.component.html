@@ -1,0 +1,6 @@
+<div class="input-group ">
+  <mat-form-field class="example-full-width fullsize">
+    <input matInput class="longSize" type="text" (keydown)="handleSubmit($event)" [(ngModel)]="messageText">
+  </mat-form-field>
+  <button type="button" class="btn btn-outline-primary lilButton" (click)=send()><mat-icon> message</mat-icon></button>
+</div>

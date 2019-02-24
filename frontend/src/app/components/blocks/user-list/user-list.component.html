@@ -1,0 +1,11 @@
+<div class="d-flex" id="wrapper">
+  <div class="bg-light border-right pull-right" id="sidebar-wrapper">
+    <div class="sidebar-heading">UserList </div>
+    <div class="list-group list-group-flush">
+        <ul>
+          <div *ngFor="let user of users">
+            <div class="messageContent"><mat-icon class="greenIcon">brightness_1</mat-icon>{{user}}</div>
+          </div>
+        </ul>
+    </div>
+  </div>

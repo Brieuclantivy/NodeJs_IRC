@@ -1,0 +1,15 @@
+{
+    "name": "socket-irc-chat",
+    "version": "0.0.1",
+    "description": "IRC chat for Epitech",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cookie-parser": "^1.4.4",
+        "express": "^4.16.4",
+        "express-session": "^1.15.6",
+        "jsonwebtoken": "^8.5.0",
+        "mongodb": "^3.1.13",
+        "mongoose": "^5.4.12",
+        "socket.io": "^2.2.0"
+    }
+}

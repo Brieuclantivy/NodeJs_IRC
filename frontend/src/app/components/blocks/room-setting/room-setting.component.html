@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="center-align col-6">
+      <mat-form-field class="example-full-width">
+          <input matInput class="longSize" type="text" (keydown)="handleSubmit($event)" [(ngModel)]="newRoomName">
+        </mat-form-field>
+        <button value= "room1" class="btn btn-primary space" (click)= createRoom()> Create room </button>
+      </div>
+</div>
+<div class="row">
+<div class="col-4" *ngFor="let room of roomList">
+  <div class="card w-33">
+      <div class="card-body">
+      <h5 class="card-title">{{room}}</h5>
+      <p class="card-text">list of user connected</p>
+      <a *ngIf="room != 'general'" class="btn btn-secondary" (click)= deleteRoom(room)>delete</a>
+    </div>
+  </div>
+</div>

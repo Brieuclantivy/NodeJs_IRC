@@ -1,0 +1,27 @@
+#form{
+    position:fixed;
+    bottom:50px;
+    min-width:100%;
+}
+
+.container {
+    width:100%;
+}
+
+.roomlist {
+    width:20%;
+}
+
+.feed {
+    width:60%;
+    word-wrap: break-word;
+}
+
+.userlist {
+    width:20%;
+}
+
+.title {
+    font-size: 40;
+    font-family: 'Courier New', Courier, monospace;
+  }
